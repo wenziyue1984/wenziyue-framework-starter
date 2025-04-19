@@ -125,5 +125,3 @@ git push origin v1.0.0
 当你 push 这个 tag 后，GitHub Actions 会自动触发 deploy 工作流程，将项目打包并发布到 GitHub Packages
 
 ⸻
-
-如果需要我帮你打包为 zip 或自动生成模板给你，随时请我~✨
