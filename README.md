@@ -37,7 +37,7 @@
 <dependency>
     <groupId>com.wenziyue</groupId>
     <artifactId>wenziyue-framework-starter</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
