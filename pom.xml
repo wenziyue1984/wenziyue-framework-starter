@@ -80,8 +80,8 @@
     <!-- 配置 GitHub Packages 仓库 -->
     <distributionManagement>
         <repository>
-            <id>github</id>
-            <name>GitHub Packages</name>
+            <id>github-framework</id>
+            <name>github-framework</name>
             <url>https://maven.pkg.github.com/wenziyue1984/wenziyue-framework-starter</url>
         </repository>
     </distributionManagement>
