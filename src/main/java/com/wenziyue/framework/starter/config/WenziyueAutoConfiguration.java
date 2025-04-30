@@ -11,8 +11,10 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplicat
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 
 /**
  * @author wenziyue
@@ -47,6 +49,10 @@ public class WenziyueAutoConfiguration {
 
         // 加上枚举序列化处理
         config.setSerializeFilters(new CommonEnumValueFilter());
+        // 显式设置支持的媒体类型
+        converter.setSupportedMediaTypes(Collections.singletonList(
+                new MediaType("application", "json", StandardCharsets.UTF_8)
+        ));
         converter.setFastJsonConfig(config);
 
         return new HttpMessageConverters(converter);
