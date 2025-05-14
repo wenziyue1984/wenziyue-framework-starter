@@ -6,7 +6,7 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.wenziyue.framework.starter.advice.ResponseResultAdvice;
 import com.wenziyue.framework.starter.exception.GlobalExceptionHandler;
 import com.wenziyue.framework.starter.json.CommonEnumValueFilter;
-import com.wenziyue.framework.starter.log.TraceIdFilter;
+import com.wenziyue.framework.starter.trace.TraceIdFilter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;

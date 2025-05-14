@@ -1,4 +1,4 @@
-package com.wenziyue.framework.starter.log;
+package com.wenziyue.framework.starter.trace;
 
 /**
  * @author wenziyue

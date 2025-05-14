@@ -1,4 +1,4 @@
-package com.wenziyue.framework.starter.log;
+package com.wenziyue.framework.starter.trace;
 
 
 import lombok.extern.slf4j.Slf4j;
