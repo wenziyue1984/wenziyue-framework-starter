@@ -6,9 +6,11 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.wenziyue.framework.starter.advice.ResponseResultAdvice;
 import com.wenziyue.framework.starter.exception.GlobalExceptionHandler;
 import com.wenziyue.framework.starter.json.CommonEnumValueFilter;
+import com.wenziyue.framework.starter.log.TraceIdFilter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -56,6 +58,15 @@ public class WenziyueAutoConfiguration {
         converter.setFastJsonConfig(config);
 
         return new HttpMessageConverters(converter);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public FilterRegistrationBean<TraceIdFilter> traceIdFilter() {
+        FilterRegistrationBean<TraceIdFilter> registrationBean = new FilterRegistrationBean<>();
+        registrationBean.setFilter(new TraceIdFilter());
+        registrationBean.setOrder(Integer.MIN_VALUE); // 越小越靠前
+        return registrationBean;
     }
 
 }
