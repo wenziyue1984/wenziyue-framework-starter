@@ -1,4 +1,4 @@
-package com.wenziyue.framework.starter.annotation;
+package com.wenziyue.framework.annotation;
 
 import java.lang.annotation.*;
 

@@ -105,7 +105,7 @@ throw new ApiException("400", "用户名或密码错误");
 
 ```properties
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.wenziyue.framework.starter.config.WenziyueAutoConfiguration
+config.com.wenziyue.framework.WenziyueAutoConfiguration
 ```
 
 ---

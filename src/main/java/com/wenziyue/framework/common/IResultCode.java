@@ -1,4 +1,4 @@
-package com.wenziyue.framework.starter.common;
+package com.wenziyue.framework.common;
 
 /**
  * @author wenziyue

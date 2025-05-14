@@ -1,6 +1,6 @@
-package com.wenziyue.framework.starter.utils;
+package com.wenziyue.framework.utils;
 
-import com.wenziyue.framework.starter.common.ICommonEnum;
+import com.wenziyue.framework.common.ICommonEnum;
 
 import java.util.Arrays;
 import java.util.Map;

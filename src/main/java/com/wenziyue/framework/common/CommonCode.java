@@ -1,4 +1,4 @@
-package com.wenziyue.framework.starter.common;
+package com.wenziyue.framework.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

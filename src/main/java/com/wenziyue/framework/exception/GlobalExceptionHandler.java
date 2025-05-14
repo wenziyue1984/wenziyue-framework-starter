@@ -1,6 +1,6 @@
-package com.wenziyue.framework.starter.exception;
+package com.wenziyue.framework.exception;
 
-import com.wenziyue.framework.starter.common.ApiResult;
+import com.wenziyue.framework.common.ApiResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

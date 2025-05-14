@@ -1,6 +1,6 @@
-package com.wenziyue.framework.starter.exception;
+package com.wenziyue.framework.exception;
 
-import com.wenziyue.framework.starter.common.CommonCode;
+import com.wenziyue.framework.common.CommonCode;
 import lombok.Getter;
 
 /**

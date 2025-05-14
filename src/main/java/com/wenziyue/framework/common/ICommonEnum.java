@@ -1,4 +1,4 @@
-package com.wenziyue.framework.starter.common;
+package com.wenziyue.framework.common;
 
 /**
  * 通用枚举接口，用于配合 FastJSON 序列化

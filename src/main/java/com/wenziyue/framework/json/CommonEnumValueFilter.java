@@ -1,7 +1,7 @@
-package com.wenziyue.framework.starter.json;
+package com.wenziyue.framework.json;
 
 import com.alibaba.fastjson.serializer.ValueFilter;
-import com.wenziyue.framework.starter.common.ICommonEnum;
+import com.wenziyue.framework.common.ICommonEnum;
 
 import java.util.HashMap;
 import java.util.Map;

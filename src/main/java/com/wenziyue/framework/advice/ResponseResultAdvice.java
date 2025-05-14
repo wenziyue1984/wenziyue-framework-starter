@@ -1,8 +1,9 @@
-package com.wenziyue.framework.starter.advice;
+package com.wenziyue.framework.advice;
 
 import java.lang.reflect.Method;
-import com.wenziyue.framework.starter.annotation.ResponseResult;
-import com.wenziyue.framework.starter.common.ApiResult;
+
+import com.wenziyue.framework.annotation.ResponseResult;
+import com.wenziyue.framework.common.ApiResult;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;

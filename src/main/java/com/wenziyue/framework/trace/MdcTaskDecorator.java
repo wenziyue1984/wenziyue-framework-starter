@@ -1,4 +1,4 @@
-package com.wenziyue.framework.starter.trace;
+package com.wenziyue.framework.trace;
 
 import org.slf4j.MDC;
 import org.springframework.core.task.TaskDecorator;
