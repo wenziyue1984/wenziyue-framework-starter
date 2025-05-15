@@ -13,7 +13,10 @@ import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
@@ -23,6 +26,7 @@ import java.util.Collections;
  */
 @Configuration
 @ConditionalOnWebApplication // 仅在 Web 环境下生效
+@Import(WebEncodingAutoConfiguration.class)
 public class WenziyueAutoConfiguration {
 
     @Bean
@@ -67,6 +71,11 @@ public class WenziyueAutoConfiguration {
         registrationBean.setFilter(new TraceIdFilter());
         registrationBean.setOrder(Integer.MIN_VALUE); // 越小越靠前
         return registrationBean;
+    }
+
+    @Bean
+    public HttpMessageConverter<String> responseBodyConverter() {
+        return new StringHttpMessageConverter(StandardCharsets.UTF_8);
     }
 
 }

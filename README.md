@@ -13,6 +13,9 @@
 | ✅ 通用响应结构类   | `ApiResult<T>` 返回结构，统一包含 code/msg/data   |
 | ✅ 自定义注解支持   | 支持在 Controller 层标注 `@ResponseResult` 自动响应封装 |
 | ✅ 自动装配         | 使用 `spring.factories` 实现 Spring Boot 自动生效 |
+| ✅ TraceId 透传     | 提供 `MdcTaskDecorator`，支持日志 traceId 在异步/定时任务中自动透传 |
+| ✅ UTF-8 字符编码统一 | 所有接口响应默认使用 `application/json;charset=UTF-8`，避免乱码 |
+| ✅ MdcExecutors 工具类 | 提供线程池封装工具，便于在非 Spring Bean 场景下使用带 traceId 的异步任务 |
 
 ---
 
@@ -37,7 +40,7 @@
 <dependency>
     <groupId>com.wenziyue</groupId>
     <artifactId>wenziyue-framework-starter</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.0（请替换为最新版本）</version>
 </dependency>
 ```
 
@@ -96,6 +99,49 @@ throw new ApiException("400", "用户名或密码错误");
   "data": null
 }
 ```
+
+---
+
+#### **✅ 异步任务 TraceId 透传**
+
+使用 starter 提供的 MdcTaskDecorator，可实现 TraceId 在异步任务、定时任务中的自动透传。
+
+你只需在业务项目中注册线程池时注入它：
+
+```java
+@Bean("asyncExecutor")
+public Executor asyncExecutor() {
+    ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+    executor.setTaskDecorator(new MdcTaskDecorator()); // 自动透传 traceId
+    ...
+    return executor;
+}
+```
+
+定时任务示例：
+
+```java
+ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2, runnable -> {
+    Runnable wrapped = mdcTaskDecorator.decorate(runnable);
+    return new Thread(wrapped);
+});
+```
+
+------
+
+#### **✅ MdcExecutors：非 Spring 场景下的异步任务封装**
+
+在工具类或非 Spring 管理的类中，也可通过 MdcExecutors 快速创建带 traceId 的线程池：
+
+```java
+ExecutorService executor = MdcExecutors.newFixedThreadPoolWithMdc(2, mdcTaskDecorator);
+
+executor.submit(() -> {
+    log.info("异步任务执行中...");
+});
+```
+
+
 
 ---
 
