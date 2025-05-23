@@ -23,24 +23,33 @@
 
 ### 1️⃣ 安装（通过 GitHub Packages 引入）
 
-首先在你的项目的 `pom.xml` 中添加 GitHub 仓库地址：
+首先在settings.xml中添加以下认证信息
+```xml
+<server>
+    <id>wenziyue-framework</id>
+    <username>你的GitHub用户名</username>
+    <password>你的GitHub Token（建议只赋予 read:packages 权限）</password>
+</server>
+```
+
+再在 `pom.xml` 中添加 GitHub 仓库地址：
 
 ```xml
+<!-- pom.xml 中添加仓库地址（id 要与上面保持一致） -->
 <repositories>
     <repository>
-        <id>github</id>
+        <id>wenziyue-framework</id>
         <url>https://maven.pkg.github.com/wenziyue1984/wenziyue-framework-starter</url>
     </repository>
 </repositories>
 ```
-
 然后引入依赖：
 
 ```xml
 <dependency>
     <groupId>com.wenziyue</groupId>
     <artifactId>wenziyue-framework-starter</artifactId>
-    <version>1.0.0（请替换为最新版本）</version>
+    <version>1.0.0（请使用最新版本）</version>
 </dependency>
 ```
 
