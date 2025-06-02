@@ -1,6 +1,7 @@
 package com.wenziyue.framework.exception;
 
 import com.wenziyue.framework.common.CommonCode;
+import com.wenziyue.framework.common.IResultCode;
 import lombok.Getter;
 
 /**
@@ -17,6 +18,14 @@ public class ApiException extends RuntimeException{
     }
     public ApiException(CommonCode code) {
         super(code.getMsg());
+        this.code = code.getCode();
+    }
+    public ApiException(IResultCode code) {
+        super(code.getMsg());
+        this.code = code.getCode();
+    }
+    public ApiException(IResultCode code, String message) {
+        super(message);
         this.code = code.getCode();
     }
 
