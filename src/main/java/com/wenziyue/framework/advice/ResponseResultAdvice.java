@@ -2,9 +2,11 @@ package com.wenziyue.framework.advice;
 
 import java.lang.reflect.Method;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wenziyue.framework.annotation.ResponseResult;
 import com.wenziyue.framework.common.ApiResult;
-import com.alibaba.fastjson.JSON;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -22,7 +24,11 @@ import java.util.Objects;
  */
 @RestControllerAdvice(annotations = {ResponseResult.class})
 @Slf4j
+@RequiredArgsConstructor
 public class ResponseResultAdvice implements ResponseBodyAdvice<Object> {
+
+    private final ObjectMapper objectMapper;
+
 
     /**
      * 判断是否需要对当前 Controller 方法的返回值进行处理。
@@ -64,14 +70,30 @@ public class ResponseResultAdvice implements ResponseBodyAdvice<Object> {
         } else if (body instanceof Boolean) {
             obj = ApiResult.success(((Boolean)body).toString());
         } else if (body instanceof String) {
-            obj = JSON.toJSONString(ApiResult.success(body));
+            // 关键点：String 返回值场景必须仍然返回 String
+            ApiResult<?> wrapper = ApiResult.success(body);
+            try {
+                obj = objectMapper.writeValueAsString(wrapper);
+            } catch (JsonProcessingException e) {
+                log.warn("Serialize ApiResult for String response failed.", e);
+                // 极端兜底：尽量不要让 String 场景抛转换异常
+                obj = String.valueOf(wrapper);
+            }
         } else {
             obj = ApiResult.success(body);
         }
 
         if (log.isDebugEnabled()) {
             String methodName = ((Method)Objects.requireNonNull(returnType.getMethod())).getName();
-            log.debug("{} return = {}", methodName, obj instanceof String ? obj : JSON.toJSONString(obj));
+            if (obj instanceof String) {
+                log.debug("{} return = {}", methodName, obj);
+            } else {
+                try {
+                    log.debug("{} return = {}", methodName, objectMapper.writeValueAsString(obj));
+                } catch (JsonProcessingException e) {
+                    log.debug("{} return = {}", methodName, obj);
+                }
+            }
         }
 
         return obj;
