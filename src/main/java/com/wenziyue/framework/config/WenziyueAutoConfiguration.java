@@ -8,18 +8,15 @@ import com.wenziyue.framework.json.CommonEnumModule;
 import com.wenziyue.framework.trace.TraceIdFilter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Collections;
 
 /**
  * @author wenziyue
@@ -43,7 +40,7 @@ public class WenziyueAutoConfiguration {
     }
 
     /**
-     * 方式一：直接提供 Module
+     * jackson 枚举序列化，方式一：直接提供 Module
      * Spring Boot 会自动把所有 Module 注入到 ObjectMapper
      */
     @Bean
@@ -53,8 +50,7 @@ public class WenziyueAutoConfiguration {
     }
 
     /**
-     * 方式二：用 BuilderCustomizer 做轻量配置
-     * 等价替代 FastJsonConfig 的 dateFormat 等设置
+     * Jackson的dateFormat 设置，也可在这里做jackson 枚举序列化，效果等价于上面的commonEnumModule()方法
      */
     @Bean
     @ConditionalOnMissingBean(name = "wenziyueJacksonCustomizer")
@@ -65,29 +61,6 @@ public class WenziyueAutoConfiguration {
             // builder.serializerByType(ICommonEnum.class, new CommonEnumJsonSerializer());
         };
     }
-
-//    @Bean
-//    @ConditionalOnMissingBean
-//    public HttpMessageConverters fastJsonHttpMessageConverters() {
-//        FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
-//        FastJsonConfig config = new FastJsonConfig();
-//        config.setSerializerFeatures(
-//                SerializerFeature.WriteMapNullValue,
-//                SerializerFeature.WriteNullStringAsEmpty
-//        );
-//        config.setDateFormat("yyyy-MM-dd HH:mm:ss");
-//        config.setCharset(StandardCharsets.UTF_8);
-//
-//        // 加上枚举序列化处理
-//        config.setSerializeFilters(new CommonEnumValueFilter());
-//        // 显式设置支持的媒体类型
-//        converter.setSupportedMediaTypes(Collections.singletonList(
-//                new MediaType("application", "json", StandardCharsets.UTF_8)
-//        ));
-//        converter.setFastJsonConfig(config);
-//
-//        return new HttpMessageConverters(converter);
-//    }
 
     @Bean
     @ConditionalOnMissingBean
