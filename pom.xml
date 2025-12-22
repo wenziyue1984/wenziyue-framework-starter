@@ -6,11 +6,12 @@
 
     <groupId>com.wenziyue</groupId>
     <artifactId>wenziyue-framework-starter</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
 
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <wenziyue.auth.core.version>1.0.20</wenziyue.auth.core.version>
     </properties>
 
     <dependencyManagement>
@@ -18,7 +19,7 @@
             <dependency>
                 <groupId>com.wenziyue</groupId>
                 <artifactId>wenziyue-bom</artifactId>
-                <version>1.0.0</version>
+                <version>1.0.8</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -60,6 +61,7 @@
         <dependency>
             <groupId>com.wenziyue</groupId>
             <artifactId>wenziyue-auth-core</artifactId>
+            <version>${wenziyue.auth.core.version}</version>
         </dependency>
 
     </dependencies>
