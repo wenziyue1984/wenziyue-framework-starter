@@ -1,11 +1,14 @@
 package com.wenziyue.framework.trace;
 
+import com.wenziyue.framework.utils.TraceIdUtils;
 import org.slf4j.MDC;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskDecorator;
 
 import java.util.Map;
 import java.util.UUID;
+
+import static com.wenziyue.framework.trace.TraceIdConstants.TRACE_ID;
 
 /**
  * 将当前线程的 MDC 内容传递给异步线程
@@ -22,9 +25,9 @@ public class MdcTaskDecorator implements TaskDecorator {
         return () -> {
             try {
                 // 如果没有 traceId，我们自动生成一个（解决定时任务没有 traceId 的问题）
-                if (contextMap == null || !contextMap.containsKey("traceId")) {
-                    String traceId = UUID.randomUUID().toString().replace("-", "");
-                    MDC.put("traceId", traceId);
+                if (contextMap == null || !contextMap.containsKey(TRACE_ID)) {
+                    String traceId = TraceIdUtils.getTraceId();
+                    MDC.put(TRACE_ID, traceId);
                 } else {
                     // 拿到当前线程的 MDC 内容（副本）
                     MDC.setContextMap(contextMap);
