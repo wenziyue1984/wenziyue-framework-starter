@@ -1,6 +1,7 @@
 package com.wenziyue.framework.trace;
 
 
+import com.wenziyue.framework.utils.TraceIdUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.core.Ordered;
@@ -30,7 +31,7 @@ public class TraceIdFilter implements Filter {
 
         String traceId = req.getHeader(TRACE_ID_HEADER);
         if (!StringUtils.hasText(traceId)) {
-            traceId = UUID.randomUUID().toString().replace("-", "");
+            traceId = TraceIdUtils.getTraceId();
         }
 
         try {

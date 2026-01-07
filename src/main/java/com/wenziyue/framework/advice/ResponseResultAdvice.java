@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wenziyue.framework.annotation.ResponseResult;
 import com.wenziyue.framework.common.ApiResult;
+import com.wenziyue.framework.common.FeignConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
@@ -59,7 +60,7 @@ public class ResponseResultAdvice implements ResponseBodyAdvice<Object> {
      */
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        if (serverHttpRequest.getHeaders().containsKey("Feign")) {
+        if (serverHttpRequest.getHeaders().containsKey(FeignConstants.FEIGN_HEADER)) {
             return body;
         }
         Object obj;
